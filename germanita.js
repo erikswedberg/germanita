@@ -69,50 +69,13 @@ $(document).ready(function() {
 
 function initPlay(thisRdioTrack) {
 	
-	
-	//http://developer.echonest.com/api/v4/song/search?api_key=N6E4NIOVYMTHNDM8J&format=json&results=1&artist=radiohead&title=karma%20police
-	
-	//http://developer.echonest.com/api/v4/track/profile?api_key=N6E4NIOVYMTHNDM8J&format=json&id=TRXXHTJ1294CD8F3B3&bucket=audio_summary
-	
-	
-	// var url = "http://" + host + "/api/v4/song/profile" + std_params + 
-      //    "&bucket=audio_summary&id=rdio-us-streaming:song:" + thisRdioTrack;
-//AR633SY1187B9AC3B9
+           apiswf.rdio_play(thisRdioTrack);
 
-//var url = "http://" + host + "/api/v4/song/profile" + std_params + 
-  //      "&bucket=audio_summary&id=AR633SY1187B9AC3B9";
-
-//var url = "http://" + host + "/api/v4/artist/similar" + std_params + 
-  //      "&bucket=id:rdio-us-streaming&limit=true&id=ARUQ6301187FB54EBA&min_hotttnesss=.0";
-
-//var url = "http://" + host + "/api/v4/track/profile" + std_params + 
-//        "&bucket=audio_summary&id=TRXXHTJ1294CD8F3B3";
-
-//http://developer.echonest.com/api/v4/track/profile?api_key=N6E4NIOVYMTHNDM8J&format=json&id=TRXXHTJ1294CD8F3B3&bucket=audio_summary
-
-//http://developer.echonest.com/api/v4/song/search?api_key=GPMDLFZYI599QAAY8&format=jsonp&callback=jsonp1315737740473&bucket=id:rdio-us-streaming&limit=true&sort=song_hotttnesss-desc&artist_id=ARUQ6301187FB54EBA&results=5
-
-
-//http://developer.echonest.com/api/v4/artist/similar?api_key=GPMDLFZYI599QAAY8&format=jsonp&callback=jsonp1315737740474&bucket=id:rdio-us-streaming&limit=true&id=ARUQ6301187FB54EBA&min_hotttnesss=.0
-
-
-
-
-
-            apiswf.rdio_play(thisRdioTrack);
-
-
-
-	
-	
 }
 
 
 function getEchonestTrackId(rdioTrackArtist, rdioTrackTitle, rdioTrackId) {
-	
-//	var url = "http://" + host + "/api/v4/song/profile" + std_params + 
-//	        "&bucket=audio_summary&id=rdio-us-streaming:song:" + rdioTrackId;
-	
+		
 		var url = "http://" + host + "/api/v4/song/search" + std_params + 
 		        "&bucket=id:rdio-us-streaming&results=1&artist=" + rdioTrackArtist + "&title="+rdioTrackTitle;
 	
@@ -130,19 +93,6 @@ function getEchonestTrackId(rdioTrackArtist, rdioTrackTitle, rdioTrackId) {
 						
 					}
 
-
-					//var songs = data.response.songs;
-			        //shuffle(songs);
-			        //for (var i in data.response.songs) {
-			        //    var song = songs[i];
-			        //    if (song.foreign_ids && song.foreign_ids.length > 0) {
-			        //        s = {};
-			        //        s.title = song.title;
-			        //        s.id =  song.foreign_ids[0].foreign_id;
-			        //        artist_info.songs.push(s);
-			        //    }
-			       // }
-			        //artist_info.songsExhausted = songs.length === 0;
 			    }
 			});
 	
@@ -167,8 +117,6 @@ function getEchoNestTrackMetadata(echonestTrackId) {
 					
 					//getEchoNestTrackAnalysis(data.response.songs[0].audio_summary.analysis_url);
 					
-					//info(DumpObject(data.response.songs[0]).dump);
-					
 				}
 		
 			}
@@ -179,9 +127,7 @@ function getEchoNestTrackMetadata(echonestTrackId) {
 function getEchoNestTrackAnalysis(echonestTrackAnalysisUrl) {
 	
 	
-		//var url = "http://" + host + "/api/v4/track/anal" + std_params + 
-		  //      "&bucket=audio_summary&id=" + echonestTrackId;
-		
+		/*
 		//curl -F "api_key=N6E4NIOVYMTHNDM8J" -F "format=json" -F "id=TRXXHTJ1294CD8F3B3" -F "bucket=audio_summary" 
 		
 		console.log(echonestTrackAnalysisUrl);
@@ -191,24 +137,7 @@ function getEchoNestTrackAnalysis(echonestTrackAnalysisUrl) {
 		  dataType: 'jsonp',
 		  success: getEchoNestTrackAnalysisCB
 		});
-		
-		
-//		$.getJSON(echonestTrackAnalysisUrl+"&callback=?", null, function(data) {
-//if (checkResponse(data)) {
-						
-				//if (data.response.songs && data.response.songs.length > 0) {
-					
-				//	info('<h3>bpm: '+ data.response.songs[0].audio_summary.tempo + '</h3>');
-				//	
-				//	callBPM(Math.round(data.response.songs[0].audio_summary.tempo));
-					
-					
-					//info(DumpObject(data.response.songs[0]).dump);
-					
-				//}
-		
-	//		}
-//		});
+		*/
 	
 }
 
@@ -284,10 +213,10 @@ callback_object.playingTrackChanged = function playingTrackChanged(playingTrack,
 	console.log(playingTrack);
 
   if (playingTrack != null) {
-    $('#track').text(playingTrack['name']);
-    $('#album').text(playingTrack['album']);
-    $('#artist').text(playingTrack['artist']);
-    $('#art').attr('src', playingTrack['icon']);
+    $('#track').text(playingTrack['name']).css({visibility: 'visible'});
+    $('#album').text(playingTrack['album']).css({visibility: 'visible'});
+    $('#artist').text(playingTrack['artist']).css({visibility: 'visible'});
+    $('#art').attr('src', playingTrack['icon']).css({visibility: 'visible'});
 
 	getEchonestTrackId(playingTrack['artist'], playingTrack['name']);
 
@@ -359,7 +288,7 @@ callback_object.updateFrequencyData = function updateFrequencyData(arrayAsString
 	
 	$('#freq div').each(function(j) {
 	   //$(this).width(thisAvg);
-		$(this).width(thisAvg);
+		$(this).height(Math.floor(thisAvg / 255 * 200));
 	})
 	
 	if (playFlag) {

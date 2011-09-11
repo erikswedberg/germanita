@@ -22,26 +22,28 @@ THE SOFTWARE.
 -->
 <head>
   <title>germanita</title>
+  <link href="fonts-base-reset.css" rel="stylesheet" type="text/css">
+  <link href="germanita.css" rel="stylesheet" type="text/css">
+
   <!--<script src="jquery-1.5.1.min.js"></script>-->
 <script src="jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
   <script src="token.js"></script>
   <script src="germanita.js"></script>
-  <style type="text/css">
-    #freq div {
-      height: 10px;
-      background-color: red;
-    }
-  </style>
 </head>
 <body>
+	
+	<div id="main">
+	
 <h1>germanita</h1>
 <div id="apiswf"></div>
-<dl>
+<!--<dl>
   <dt>playState</dt>
   <dd id="playState"></dd>
 
-  <dt>track</dt>
+
+
+<dt>track</dt>
   <dd id="track"></dd>
   <dt>album</dt>
   <dd id="album"></dd>
@@ -51,27 +53,30 @@ THE SOFTWARE.
   <dd><img src="" id="art"></dd>
   <dt>position</dt>
   <dd id="position"></dd>
-</dl>
+</dl>-->
 
-<input id="play_key" value="a254895"><button id="play">Play</button><br>
+<div id="info">
+	<div id="artist"></div>
+	<div id="album"></div>
+	<div id="track"></div>
+	<div>
+		<div id="art-cont"><img src="" id="art"></div>
+		<div id="freq"><div id="bar"></div></div>
+	</div>
+</div>
+
+<div id="controls">
+<input id="play_key" value="a254895"><button id="play">Play</button>
 <button id="stop">Stop</button>
 <button id="pause">Pause</button>
 <button id="previous">Previous</button>
 <button id="next">Next</button>
-
-<div id="freq">
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
 </div>
 
-<div id="log"></div>
+
+<!--<div id="log"></div> -->
+
+
+</div>
 </body>
 </html>

@@ -1,0 +1,43 @@
+#freq div {
+	position: absolute;
+	bottom: 0;
+	height: 0;
+	width: 100%;
+    background-color: #b4e85e;
+	-webkit-transition-property: height;
+	-webkit-transition-duration: 0.1s;
+	-moz-transition-property: height;
+	-moz-transition-duration: 0.1s;
+  }
+	#main {
+		padding: 2em;
+	}
+	#art-cont {
+		border: 1px solid #ccc; display: inline-block;
+		margin-top: 1em;
+		float: left;
+		margin-right: 30px;
+	}
+	#art {
+		visibility:hidden; width: 200px; height: 200px;
+	}
+	#artist, #album, #track {
+		visibility: hidden;
+		height: 1em;
+		line-height: 1.3em;
+		margin-bottom: 3px;
+	}
+	#play_key {
+		display: none;
+	}
+	#controls {
+		padding-top: 3em;
+		clear: both;
+	}
+	#freq {
+		position: relative;
+		margin-top: 1em;
+		height: 200px;
+		width: 30px;
+		float: left;
+	}

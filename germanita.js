@@ -33,6 +33,7 @@ var std_params = "?api_key=" + echonest_api_key +  "&format=jsonp" + "&callback=
 //var std_params = "?api_key=GPMDLFZYI599QAAY8" + "&format=json";
 var std_sim_params = std_params + "&bucket=id:rdio-us-streaming&limit=true";
 
+var playFlag = false;
 
 $(document).ready(function() {
   // on page load use SWFObject to load the API swf into div#apiswf
@@ -54,9 +55,13 @@ $(document).ready(function() {
   $('#play').click(function() {
     //apiswf.rdio_play($('#play_key').val());
 	initPlay($('#play_key').val());
+	playFlag = true;
   });
-  $('#stop').click(function() { apiswf.rdio_stop(); });
-  $('#pause').click(function() { apiswf.rdio_pause(); });
+  $('#stop').click(function() { apiswf.rdio_stop(); playFlag = false; });
+  $('#pause').click(function() { apiswf.rdio_pause();
+	playFlag = false;
+	//if (playFlag) { playFlag = false; } else { playFlag = true; }
+	 });
   $('#previous').click(function() { apiswf.rdio_previous(); });
   $('#next').click(function() { apiswf.rdio_next(); });
 });
@@ -234,6 +239,23 @@ function callBPM(thisBPM) {
 	
 }
 
+function callIntensity(thisVol) {
+
+	var url = "/volume";
+	
+	$.post(
+		url,
+		{volume: thisVol},
+		function(data)
+		{
+
+			console.log(data);
+
+	});
+
+}
+
+
 // the global callback object
 var callback_object = {};
 
@@ -244,7 +266,7 @@ callback_object.ready = function ready() {
   apiswf = $('#apiswf').get(0);
 
   apiswf.rdio_startFrequencyAnalyzer({
-   frequencies: '10-band',
+   frequencies: '4-band',
    period: 100
  })
 }
@@ -314,11 +336,38 @@ callback_object.updateFrequencyData = function updateFrequencyData(arrayAsString
   // Called with frequency information after apiswf.rdio_startFrequencyAnalyzer(options) is called.
   // arrayAsString is a list of comma separated floats.
 
+//	console.log(arrayAsString);
+
   var arr = arrayAsString.split(',');
 
-  $('#freq div').each(function(i) {
-    $(this).width(parseInt(parseFloat(arr[i])*500));
-  })
+  //$('#freq div').each(function(i) {
+  //  $(this).width(parseInt(parseFloat(arr[i])*500));
+  //})
+
+	var thisAvg = 0;
+
+	var i = 0;
+	for (i=0; i<arr.length; i++) {
+		
+		thisAvg += parseInt(parseFloat(arr[i])*350);
+		
+	}
+	
+	thisAvg = (thisAvg / i);
+	
+	if (thisAvg > 255) { thisAvg = 255; }
+	
+	$('#freq div').each(function(j) {
+	   //$(this).width(thisAvg);
+		$(this).width(thisAvg);
+	})
+	
+	if (playFlag) {
+		callIntensity(Math.round(thisAvg));
+	}
+	
+	info(thisAvg);
+
 }
 
 var Log = {
